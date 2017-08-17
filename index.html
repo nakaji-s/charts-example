@@ -7,23 +7,38 @@
 
 <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
     Vue.component('line-chart', {
         extends: VueChartJs.Line,
         mounted () {
+            this.loadData();
             this.renderChart({
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
                 datasets: [
                     {
                         label: 'Data One',
                         backgroundColor: '#f87979',
-                        data: [40, 39, 10, 40, 39, 80, 40]
+                        data: []
                     }
                 ]
             }, {responsive: true, maintainAspectRatio: false})
-        }
 
+            this.loadData();
+            setInterval(function () {
+                this.loadData();
+            }.bind(this), 3000);
+        },
+        methods: {
+            loadData: function () {
+                console.log("loading")
+                axios.get("/data").then((response) => {
+                    this._chart.data.datasets[0].data = response.data.Data
+                    this._chart.update()
+                }).catch((error) => { console.log(error); });
+            }
+        }
     })
 
     var vm = new Vue({
