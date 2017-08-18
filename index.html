@@ -15,7 +15,7 @@
         mounted () {
             this.loadData();
             this.renderChart({
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: new Array(100),
                 datasets: [
                     {
                         label: 'Data One',
@@ -23,12 +23,12 @@
                         data: []
                     }
                 ]
-            }, {responsive: true, maintainAspectRatio: false})
+            }, {responsive: true, maintainAspectRatio: false, animation: false})
 
             this.loadData();
             setInterval(function () {
                 this.loadData();
-            }.bind(this), 3000);
+            }.bind(this), 1000);
         },
         methods: {
             loadData: function () {
