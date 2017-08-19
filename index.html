@@ -2,10 +2,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-</body>
-
 <div class="app" v-cloak>
-    {{ message }}
     <line-chart></line-chart>
 </div>
 
@@ -25,14 +22,12 @@
                 ]
             }, {responsive: true, maintainAspectRatio: false, animation: false})
 
-            this.loadData();
             setInterval(function () {
                 this.loadData();
             }.bind(this), 1000);
         },
         methods: {
             loadData: function () {
-                console.log("loading")
                 axios.get("/data").then((response) => {
                     this._chart.data.datasets[0].data = response.data.Data
                     this._chart.update()
@@ -42,9 +37,6 @@
     })
 
     var vm = new Vue({
-        el: '.app',
-        data: {
-            message: 'Hello World'
-        }
+        el: '.app'
     })
 </script>
