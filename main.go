@@ -20,7 +20,7 @@ func (d *DataSet) Add(num int) {
 func main() {
 	e := echo.New()
 
-	e.File("/", "charts-example/index.html")
+	e.File("/", "index.html")
 
 	dataSet := DataSet{Data: []int{}}
 	for i := 0; i < 100; i++ {
